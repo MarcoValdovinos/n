@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>QUANTUM SOUND v6</title>
+<title>QUANTUM SOUND v7</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 body{background:#050508;color:#fff;display:flex;justify-content:center}
@@ -44,21 +44,24 @@ h2.sec{margin:20px 0 8px;font-size:18px}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:430px;background:#0e0e17;border-top:1px solid #222233;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 0 14px;z-index:20}
 nav button{background:none;border:0;color:#8a8a9e;font-size:11px;cursor:pointer;display:flex;flex-direction:column;gap:3px;align-items:center}
 nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
-#full{position:fixed;inset:0;background:radial-gradient(circle at 50% 20%,#1a0b2e,#050508 70%);z-index:100;display:none;flex-direction:column;padding:18px 20px 30px}
+#full{position:fixed;inset:0;background:radial-gradient(circle at 50% 20%,#2a0a4a,#050508 70%);z-index:100;display:none;flex-direction:column;padding:18px 20px 30px}
 #full.show{display:flex}
 .full-top{display:flex;justify-content:space-between;align-items:center}
 .full-top button{background:#1a1a2b;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer}
-.visual{width:260px;height:260px;margin:18px auto 10px;position:relative;display:grid;place-items:center}
-.ring{position:absolute;border-radius:50%;border:2px solid rgba(103,232,249,.7);animation:pulse 1.8s ease-out infinite}
-.ring.r2{border-color:rgba(244,114,182,.7);animation-delay:.4s}
-.ring.r3{border-color:rgba(168,85,247,.7);animation-delay:.8s}
-@keyframes pulse{0%{inset:60px;opacity:.9}100%{inset:-10px;opacity:0}}
-.core{width:150px;height:150px;border-radius:50%;background:conic-gradient(from 0deg,#22d3ee,#ec4899,#a855f7,#22d3ee);display:grid;place-items:center;box-shadow:0 0 60px rgba(34,211,238,.6);animation:spin 8s linear infinite}
+.visual{width:260px;height:260px;margin:14px auto 6px;position:relative;display:grid;place-items:center;animation:visualPulse 1s ease-in-out infinite}
+@keyframes visualPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+.ring{position:absolute;border-radius:50%;border:3px solid rgba(103,232,249,.9);animation:pulse 1.2s ease-out infinite}
+.ring.r2{border-color:rgba(244,114,182,.9);animation-delay:.3s}
+.ring.r3{border-color:rgba(168,85,247,.9);animation-delay:.6s}
+@keyframes pulse{0%{inset:70px;opacity:1}100%{inset:-12px;opacity:0}}
+.core{width:155px;height:155px;border-radius:50%;background:conic-gradient(from 0deg,#22d3ee,#ec4899,#a855f7,#22d3ee);display:grid;place-items:center;box-shadow:0 0 70px rgba(34,211,238,.9);animation:spin 3s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.core span{width:110px;height:110px;background:#0a0a12;border-radius:50%;display:grid;place-items:center;font-size:48px}
-.bars{display:flex;gap:5px;align-items:flex-end;justify-content:center;height:70px;margin:8px 0}
-.bars div{width:7px;background:linear-gradient(to top,#22d3ee,#ec4899);border-radius:4px;height:18px}
-.full-title{text-align:center;margin-top:6px}
+.core span{width:112px;height:112px;background:#0a0a12;border-radius:50%;display:grid;place-items:center;font-size:52px}
+.bars{display:flex;gap:5px;align-items:flex-end;justify-content:center;height:78px;margin:10px 0}
+.bars div{width:8px;background:linear-gradient(to top,#22d3ee,#ec4899,#a855f7);border-radius:5px;animation:bounce .7s ease-in-out infinite alternate}
+.bars div:nth-child(1){animation-delay:0s;height:30px} .bars div:nth-child(2){animation-delay:.1s} .bars div:nth-child(3){animation-delay:.2s} .bars div:nth-child(4){animation-delay:0s} .bars div:nth-child(5){animation-delay:.3s} .bars div:nth-child(6){animation-delay:.1s} .bars div:nth-child(7){animation-delay:.4s} .bars div:nth-child(8){animation-delay:.2s} .bars div:nth-child(9){animation-delay:0s} .bars div:nth-child(10){animation-delay:.3s} .bars div:nth-child(11){animation-delay:.1s} .bars div:nth-child(12){animation-delay:.4s} .bars div:nth-child(13){animation-delay:.2s} .bars div:nth-child(14){animation-delay:0s} .bars div:nth-child(15){animation-delay:.3s} .bars div:nth-child(16){animation-delay:.1s} .bars div:nth-child(17){animation-delay:.4s} .bars div:nth-child(18){animation-delay:.2s} .bars div:nth-child(19){animation-delay:0s} .bars div:nth-child(20){animation-delay:.3s} .bars div:nth-child(21){animation-delay:.1s} .bars div:nth-child(22){animation-delay:.4s} .bars div:nth-child(23){animation-delay:.2s} .bars div:nth-child(24){animation-delay:0s} .bars div:nth-child(25){animation-delay:.3s} .bars div:nth-child(26){animation-delay:.1s} .bars div:nth-child(27){animation-delay:.4s} .bars div:nth-child(28){animation-delay:.2s}
+@keyframes bounce{from{height:14px}to{height:76px}}
+.full-title{text-align:center;margin-top:4px}
 .full-title b{font-size:20px;display:block}
 .full-title span{color:#9a9ab0;font-size:13px}
 .full-progress{height:5px;background:#2a2a3d;border-radius:999px;margin:16px 0 6px;overflow:hidden}
@@ -87,7 +90,6 @@ nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 <div id="lista"></div>
 <button class="btn-ver" onclick="abrirFull()">🔮 VER PANTALLA COMPLETA / ANIMACIÓN</button>
 </div>
-
 <div class="player" onclick="abrirFull()">
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="p-row">
@@ -98,14 +100,12 @@ nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 <button class="ctrl" onclick="siguiente();event.stopPropagation()">⏭</button>
 </div>
 </div>
-
 <nav>
 <button class="on"><i>🏠</i>Inicio</button>
 <button onclick="document.getElementById('buscador').focus()"><i>🔍</i>Buscar</button>
 <button><i>📚</i>Biblioteca</button>
 <button><i>👤</i>Perfil</button>
 </nav>
-
 <div id="full">
 <div class="full-top"><button onclick="cerrarFull()">↓</button><span style="font-size:12px;color:#9a9ab0">QUANTUM SOUND • CYMATIC</span><button onclick="cerrarFull()">✕</button></div>
 <div class="visual"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core"><span id="fullEmoji">🎵</span></div></div>
@@ -115,15 +115,14 @@ nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 <div class="full-times"><span id="cur">0:00</span><span id="dur">0:00</span></div>
 <div class="full-ctrls">
 <button onclick="anterior()">⏮</button>
-<button class="main" id="fullPlay" onclick="togglePlay()">⏸</button>
+<button class="main" id="fullPlay" onclick="togglePlay()">▶</button>
 <button onclick="siguiente()">⏭</button>
 </div>
-<p style="text-align:center;color:#7ef3ff;font-size:12px;margin-top:14px">✨ Animación con tu música real ✨</p>
+<p style="text-align:center;color:#7ef3ff;font-size:12px;margin-top:14px">✨ Animación siempre activa ✨</p>
 </div>
-
 <audio id="audio" preload="metadata"></audio>
 <script>
-let canciones=[]; let actual=0, sonando=false, audioCtx=null, analyser=null, dataArray=null;
+let canciones=[]; let actual=0, sonando=false;
 const lista=document.getElementById('lista'), audio=document.getElementById('audio'), count=document.getElementById('count');
 const barsEl=document.getElementById('bars');
 for(let i=0;i<28;i++){ const d=document.createElement('div'); barsEl.appendChild(d); }
@@ -149,25 +148,6 @@ function pintar(filtro=""){
     d.onclick=()=>tocar(idx); lista.appendChild(d);
   });
 }
-function initAnalyser(){
-  if(audioCtx) { if(audioCtx.state==='suspended') audioCtx.resume(); return; }
-  try{
-    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    const src=audioCtx.createMediaElementSource(audio);
-    analyser=audioCtx.createAnalyser(); analyser.fftSize=64;
-    src.connect(analyser); analyser.connect(audioCtx.destination);
-    dataArray=new Uint8Array(analyser.frequencyBinCount);
-  }catch(e){}
-}
-function animateBars(){
-  requestAnimationFrame(animateBars);
-  const bars=barsEl.children;
-  if(analyser && sonando){
-    try{ analyser.getByteFrequencyData(dataArray); for(let i=0;i<bars.length;i++){ const v=dataArray[i % dataArray.length]||0; bars[i].style.height=(8+v/255*62)+'px'; } return; }catch(e){}
-  }
-  for(let i=0;i<bars.length;i++){ bars[i].style.height=(12+Math.sin(Date.now()/200+i)*8)+'px'; }
-}
-animateBars();
 function tocar(id,e){
   if(e) e.stopPropagation();
   try{
@@ -177,9 +157,7 @@ function tocar(id,e){
     document.getElementById('fullTitle').textContent=c.titulo;
     document.getElementById('fullArtist').textContent=c.artista;
     sonando=true; document.getElementById('btnPlay').textContent='⏸'; document.getElementById('fullPlay').textContent='⏸';
-    initAnalyser();
-    audio.src=c.fileURL;
-    audio.play().catch(()=>{});
+    audio.src=c.fileURL; audio.play().catch(()=>{});
     pintar(document.getElementById('buscador').value.toLowerCase());
   }catch(err){}
   setTimeout(abrirFull,150);
@@ -189,7 +167,7 @@ function togglePlay(){
   sonando=!sonando;
   document.getElementById('btnPlay').textContent=sonando?'⏸':'▶';
   document.getElementById('fullPlay').textContent=sonando?'⏸':'▶';
-  if(sonando){ initAnalyser(); audio.play().catch(()=>{}); } else audio.pause();
+  if(sonando) audio.play().catch(()=>{}); else audio.pause();
 }
 function siguiente(){ if(canciones.length) tocar((actual+1)%canciones.length); }
 function anterior(){ if(canciones.length) tocar((actual-1+canciones.length)%canciones.length); }
