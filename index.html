@@ -1,807 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>AUTO VIDEO · MERKABA ENGINE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>QUANTUM SOUND</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body { width:100%; height:100%; overflow:hidden; background:#000; }
-  body { font-family:'Courier New',monospace; color:#ffd97a; user-select:none; }
-  canvas { display:block; }
-
-  #intro {
-    position:fixed; inset:0; z-index:1000; cursor:pointer;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background: radial-gradient(circle at center, #0a0a1e 0%, #000 75%);
-    transition: opacity 0.8s; text-align:center; padding:24px;
-  }
-  #intro.hide { opacity:0; pointer-events:none; }
-  #intro h1 {
-    font-size: clamp(28px, 7vw, 60px); letter-spacing:10px; font-weight:bold;
-    background: linear-gradient(90deg,#ffcc44,#ff8800,#ffcc44);
-    background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
-    animation: shimmer 3s linear infinite; margin-bottom:14px;
-  }
-  @keyframes shimmer { to { background-position:200% 0; } }
-  #intro .sub { font-size:11px; letter-spacing:6px; opacity:.6; margin-bottom:44px; }
-  #intro .box {
-    border:2px dashed #ffcc4455; border-radius:20px; padding:36px 50px;
-    background: #ffcc4408; font-size:13px; letter-spacing:3px; transition:all .3s;
-  }
-  #intro .box:hover { border-color:#ffcc44; background:#ffcc4412; }
-  #intro .info { margin-top:36px; font-size:10px; opacity:.5; letter-spacing:2px; line-height:2; max-width:440px; }
-  #intro .info b { color:#ffcc44; }
-
-  /* HUD */
-  #hud {
-    position:fixed; inset:0; pointer-events:none; padding:16px; z-index:10;
-    display:flex; flex-direction:column; justify-content:space-between;
-  }
-  .row { display:flex; justify-content:space-between; align-items:flex-start; }
-  .brand { font-size:16px; font-weight:bold; letter-spacing:4px; color:#ffcc44;
-           text-shadow:0 0 20px #ffcc44aa; }
-  .brand span { color:#00d0ff; }
-  .stats { text-align:right; font-size:10px; line-height:1.9; letter-spacing:1px; opacity:.85; }
-  .stats b { color:#00ff88; }
-
-  /* Barra de progreso de la canción */
-  #progress-bar {
-    position:fixed; bottom:0; left:0; right:0; height:4px;
-    background:#ffffff11; z-index:20;
-  }
-  #progress-fill {
-    height:100%; width:0%;
-    background: linear-gradient(90deg,#ffcc44,#ff8800,#00d0ff);
-    transition: width 0.25s linear;
-  }
-
-  /* Estado de grabación */
-  #recstatus {
-    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-    font-size:15px; letter-spacing:5px; color:#ff2244;
-    text-shadow: 0 0 30px #ff2244;
-    z-index:15; pointer-events:none;
-    display:flex; align-items:center; gap:12px;
-    opacity:0; transition: opacity 0.4s;
-  }
-  #recstatus.show { opacity:1; }
-  #recstatus .dot {
-    width:14px; height:14px; background:#ff2244; border-radius:50%;
-    animation: blink 1s infinite;
-    box-shadow: 0 0 20px #ff2244;
-  }
-  @keyframes blink { 50% { opacity:.25; } }
-
-  /* Toast */
-  #toast {
-    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(.9);
-    background:#060c1cee; border:1px solid #ffcc44; color:#ffcc44;
-    padding:20px 40px; border-radius:18px; font-size:13px; letter-spacing:3px;
-    backdrop-filter:blur(16px); z-index:100; opacity:0; transition:all .4s;
-    pointer-events:none; text-align:center; text-transform:uppercase;
-    box-shadow:0 0 80px #ffcc4466; max-width:80vw;
-  }
-  #toast.show { opacity:1; transform:translate(-50%,-50%) scale(1); }
-
-  /* Pantalla final */
-  #done {
-    position:fixed; inset:0; z-index:500;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background: radial-gradient(circle at center, #0a0a1e 0%, #000 75%);
-    opacity:0; pointer-events:none; transition: opacity 0.6s;
-    text-align:center; padding:24px;
-  }
-  #done.show { opacity:1; pointer-events:auto; }
-  #done h2 {
-    font-size: clamp(24px, 5vw, 44px); letter-spacing:8px; color:#ffcc44;
-    text-shadow:0 0 40px #ffcc44aa; margin-bottom:20px;
-  }
-  #done p { font-size:12px; letter-spacing:3px; opacity:.7; margin-bottom:40px; }
-  #done .btn {
-    background:#0a0a1e; border:1px solid #ffcc44; color:#ffcc44;
-    padding:14px 32px; border-radius:40px; font-family:inherit;
-    font-size:12px; letter-spacing:4px; cursor:pointer;
-    transition: all .3s; text-transform:uppercase;
-    box-shadow: 0 0 30px #ffcc4433;
-  }
-  #done .btn:hover { background:#ffcc4422; box-shadow: 0 0 50px #ffcc4466; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{background:#050508;color:#fff;display:flex;justify-content:center;min-height:100vh}
+.app{width:100%;max-width:430px;min-height:100vh;background:#0a0a12;position:relative;padding:18px 16px 110px;overflow:hidden}
+header{display:flex;align-items:center;gap:10px;justify-content:center;margin:8px 0 16px}
+.logo{width:38px;height:38px;border:1.5px solid #7ef3ff;border-radius:10px;display:grid;place-items:center;font-size:20px;transform:rotate(45deg)}
+.logo span{transform:rotate(-45deg)}
+h1{font-size:26px;letter-spacing:.5px;font-weight:800;background:linear-gradient(90deg,#a8f5ff,#e9a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.search{width:100%;background:#14141f;border:1px solid #2a2a3d;border-radius:999px;padding:12px 16px;color:#fff;display:flex;gap:8px;align-items:center}
+.search input{flex:1;background:transparent;border:0;outline:none;color:#fff;font-size:14px}
+.search input::placeholder{color:#8a8a9e}
+.row{display:flex;justify-content:space-between;align-items:center;margin:22px 0 12px}
+.row h2{font-size:18px}
+.row a{color:#7ef3ff;text-decoration:none;font-size:13px}
+.playlists{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#15151f;border-radius:18px;overflow:hidden;cursor:pointer;border:1px solid #222233}
+.card .art{height:120px;display:grid;place-items:center;font-size:36px;position:relative;overflow:hidden}
+.art1{background:radial-gradient(circle at 30% 30%,#00e5ff33,transparent),linear-gradient(135deg,#0ff,#f0f)}
+.art2{background:radial-gradient(circle at 70% 30%,#ff4df033,transparent),linear-gradient(135deg,#a855f7,#ec4899)}
+.wave{position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 50%,transparent 0 8px,rgba(255,255,255,.18) 9px,transparent 10px);animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card p{padding:10px 10px 2px;font-weight:800;font-size:13px;text-align:center}
+.card small{display:block;text-align:center;color:#9a9ab0;font-size:11px;padding-bottom:10px}
+h2.sec{margin:22px 0 12px;font-size:18px}
+.song{display:flex;gap:12px;align-items:center;padding:10px 8px;border-radius:14px;cursor:pointer}
+.song.active{background:#1a1a2b}
+.cover{width:52px;height:52px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;font-size:20px}
+.c1{background:linear-gradient(135deg,#a5f3fc,#f0abfc)} .c2{background:linear-gradient(135deg,#f0abfc,#fda4af)} .c3{background:linear-gradient(135deg,#c4b5fd,#67e8f9)} .c4{background:linear-gradient(135deg,#67e8f9,#f0abfc)}
+.song b{font-size:15px} .song span{color:#9a9ab0;font-size:12px}
+.playbtn{margin-left:auto;width:36px;height:36px;border-radius:50%;border:1.5px solid #7ef3ff;background:transparent;color:#7ef3ff;font-size:14px;cursor:pointer}
+.playbtn.pink{border-color:#ff7ad9;color:#ff7ad9}
+.player{position:fixed;left:50%;transform:translateX(-50%);bottom:68px;width:calc(100% - 32px);max-width:398px;background:#14141f;border:1px solid #2e2e44;border-radius:18px;padding:10px 12px}
+.progress{height:4px;background:#2a2a3d;border-radius:999px;overflow:hidden;margin-bottom:10px}
+.bar{height:100%;width:0%;background:linear-gradient(90deg,#67e8f9,#f472b6)}
+.p-row{display:flex;align-items:center;gap:10px}
+.p-cover{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#67e8f9,#f0abfc);display:grid;place-items:center}
+.p-info{flex:1;min-width:0} .p-info b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block} .p-info span{font-size:11px;color:#9a9ab0}
+.ctrl{width:32px;height:32px;border-radius:50%;border:1px solid #444;background:transparent;color:#fff;cursor:pointer}
+.ctrl.main{width:38px;height:38px;border-color:#ff7ad9;color:#ff7ad9;font-size:16px}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:430px;background:#0e0e17;border-top:1px solid #222233;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 0 14px}
+nav button{background:none;border:0;color:#8a8a9e;font-size:11px;cursor:pointer;display:flex;flex-direction:column;gap:3px;align-items:center}
+nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 </style>
 </head>
 <body>
-
-<div id="intro">
-  <h1>AUTO VIDEO</h1>
-  <div class="sub">MERKABA ENGINE · CYMATIC 5D</div>
-  <div class="box">◈ SUELTA UN MP3 AQUÍ ◈<br><br>O HAZ CLIC PARA ELEGIR</div>
-  <div class="info">
-    <b>→ La canción arranca sola</b><br>
-    <b>→ La grabación comienza automáticamente</b><br>
-    <b>→ Cuando la canción termina, el video se descarga</b><br><br>
-    Cero clics. Cero edición. Solo música.
-  </div>
+<div class="app">
+<header><div class="logo"><span>◆</span></div><h1>QUANTUM SOUND</h1></header>
+<label class="search">🔍 <input id="buscador" placeholder="Buscar canciones, artistas o playlists"></label>
+<div class="row"><h2>Playlists</h2><a href="#" onclick="return false">Ver todo</a></div>
+<div class="playlists">
+<div class="card" onclick="filtrar('cymatic')"><div class="art art1"><div class="wave"></div>〰️</div><p>CYMATIC WAVES</p><small>24 temas • Ambient • Chill</small></div>
+<div class="card" onclick="filtrar('neon')"><div class="art art2"><div class="wave"></div>🌌</div><p>NEON NEBULA</p><small>18 temas • Synthwave • Focus</small></div>
 </div>
-
-<div id="hud">
-  <div class="row">
-    <div class="brand">MERKABA<span> · 5D</span></div>
-    <div class="stats">
-      <div><span id="fps">--</span> FPS</div>
-      <div>TIEMPO <b id="tcurrent">0:00</b> / <b id="ttotal">0:00</b></div>
-      <div>BEATS <b id="beats">0</b></div>
-    </div>
-  </div>
+<h2 class="sec">Para ti — Hoy</h2>
+<div id="lista"></div>
 </div>
-
-<div id="recstatus"><span class="dot"></span>GRABANDO</div>
-
-<div id="progress-bar"><div id="progress-fill"></div></div>
-
-<div id="toast"></div>
-
-<div id="done">
-  <h2>✦ VIDEO LISTO ✦</h2>
-  <p>Tu película generativa se ha descargado</p>
-  <button class="btn" id="btn-restart">↺ CREAR OTRO</button>
+<div class="player">
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="p-row">
+<div class="p-cover" id="pCover">🎵</div>
+<div class="p-info"><b id="pTitle">Echo Chamber</b><span id="pArtist">Nova Rift • 1:24 de 3:42</span></div>
+<button class="ctrl" onclick="anterior()">⏮</button>
+<button class="ctrl main" id="btnPlay" onclick="togglePlay()">⏸</button>
+<button class="ctrl" onclick="siguiente()">⏭</button>
 </div>
-
-<canvas id="canvas"></canvas>
-<input type="file" id="fileinput" accept="audio/*" style="display:none" />
-
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
-
-<script type="module">
-import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
-
-/* ============================================================
-   CALIDAD ADAPTATIVA (optimizada para móvil)
-   ============================================================ */
-const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-const Q = {
-  RATIO: IS_MOBILE ? 1 : 1.5,
-  SPARK: IS_MOBILE ? 800 : 2000,
-  STARS: IS_MOBILE ? 800 : 2000,
-};
-
-/* ============================================================
-   RENDERER + ESCENA
-   ============================================================ */
-const canvas = document.getElementById('canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias:!IS_MOBILE, preserveDrawingBuffer:true, powerPreference:'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio, Q.RATIO));
-renderer.setSize(innerWidth, innerHeight);
-renderer.setClearColor(0x000308, 1);
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.9;
-
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x000308, 0.012);
-const camera = new THREE.PerspectiveCamera(52, innerWidth/innerHeight, 0.1, 900);
-
-/* ============================================================
-   ENVIRONMENT MAP (reflejos del cristal)
-   ============================================================ */
-function makeEnvTexture(){
-  const c = document.createElement('canvas');
-  c.width = 512; c.height = 256;
-  const ctx = c.getContext('2d');
-  const g = ctx.createLinearGradient(0,0,0,256);
-  g.addColorStop(0, '#001133');
-  g.addColorStop(0.35,'#0a3a6a');
-  g.addColorStop(0.5, '#7a5cff');
-  g.addColorStop(0.65,'#00d0ff');
-  g.addColorStop(1, '#000308');
-  ctx.fillStyle = g; ctx.fillRect(0,0,512,256);
-  for (let i=0;i<25;i++){
-    const x = Math.random()*512, y = Math.random()*256, r = 8+Math.random()*40;
-    const rg = ctx.createRadialGradient(x,y,0,x,y,r);
-    rg.addColorStop(0, 'rgba(255,220,150,'+(0.3+Math.random()*0.5)+')');
-    rg.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = rg;
-    ctx.fillRect(x-r,y-r,r*2,r*2);
-  }
-  const tex = new THREE.CanvasTexture(c);
-  tex.mapping = THREE.EquirectangularReflectionMapping;
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
-const pmrem = new THREE.PMREMGenerator(renderer);
-const envMap = pmrem.fromEquirectangular(makeEnvTexture()).texture;
-scene.environment = envMap;
-
-/* ============================================================
-   POST-PROCESO
-   ============================================================ */
-const composer = new EffectComposer(renderer);
-composer.setPixelRatio(Math.min(devicePixelRatio, Q.RATIO));
-composer.setSize(innerWidth, innerHeight);
-composer.addPass(new RenderPass(scene, camera));
-
-const bloom = new UnrealBloomPass(
-  new THREE.Vector2(innerWidth, innerHeight),
-  0.7,   // Strength (bajado para móvil)
-  0.6,   // Radius
-  0.4    // Threshold
-);
-composer.addPass(bloom);
-
-const FilmShader = {
-  uniforms: {
-    tDiffuse:{value:null}, uTime:{value:0},
-    uCA:{value:0.001}, uGrain:{value:0.04},
-    uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
-    uPulse:{value:0},
-  },
-  vertexShader:`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
-  fragmentShader:`
-    uniform sampler2D tDiffuse; uniform float uTime,uCA,uGrain,uPulse;
-    uniform vec2 uResolution; varying vec2 vUv;
-    float rand(vec2 c){ return fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453); }
-    void main(){
-      vec2 uv=vUv; vec2 dir=uv-0.5; float d=length(dir);
-      float ca=(uCA+uPulse*0.006)*(0.4+d*1.8);
-      float r=texture2D(tDiffuse,uv+dir*ca).r;
-      float g=texture2D(tDiffuse,uv).g;
-      float b=texture2D(tDiffuse,uv-dir*ca).b;
-      vec3 col=vec3(r,g,b);
-      col+=sin(uv.y*uResolution.y*1.2+uTime*2.0)*0.008;
-      float grain=rand(uv*uResolution+uTime*60.0)-0.5;
-      col+=grain*(uGrain+uPulse*0.06);
-      col*=1.0-smoothstep(0.4,1.0,d)*0.9;
-      col+=uPulse*0.05;
-      gl_FragColor=vec4(col,1.0);
-    }`
-};
-const filmPass = new ShaderPass(FilmShader);
-filmPass.renderToScreen = true;
-composer.addPass(filmPass);
-
-/* ============================================================
-   MERKABA · Cristal dorado (sin transmission para móvil)
-   ============================================================ */
-const merkabaGroup = new THREE.Group();
-scene.add(merkabaGroup);
-
-const crystalMat = new THREE.MeshPhysicalMaterial({
-  color: 0xfff0c0,
-  metalness: 0.75,
-  roughness: 0.08,
-  transmission: 0.0,
-  iridescence: 0.85,
-  iridescenceIOR: 1.35,
-  clearcoat: 1.0,
-  clearcoatRoughness: 0.05,
-  envMap: envMap,
-  envMapIntensity: 2.0,
-  transparent: true,
-  opacity: 0.95,
-  side: THREE.DoubleSide,
-});
-
-const tetraUpGeom = new THREE.TetrahedronGeometry(3.6, 0);
-const tetraUp = new THREE.Mesh(tetraUpGeom, crystalMat);
-merkabaGroup.add(tetraUp);
-
-const tetraDownGeom = new THREE.TetrahedronGeometry(3.6, 0);
-const tetraDown = new THREE.Mesh(tetraDownGeom, crystalMat);
-tetraDown.rotation.z = Math.PI;
-merkabaGroup.add(tetraDown);
-
-const edgesUpGeom = new THREE.EdgesGeometry(tetraUpGeom);
-const edgesUp = new THREE.LineSegments(edgesUpGeom, new THREE.LineBasicMaterial({
-  color: 0xffcc44, transparent:true, opacity:0.95, blending: THREE.AdditiveBlending,
-}));
-merkabaGroup.add(edgesUp);
-
-const edgesDownGeom = new THREE.EdgesGeometry(tetraDownGeom);
-const edgesDown = new THREE.LineSegments(edgesDownGeom, new THREE.LineBasicMaterial({
-  color: 0xffcc44, transparent:true, opacity:0.95, blending: THREE.AdditiveBlending,
-}));
-edgesDown.rotation.z = Math.PI;
-merkabaGroup.add(edgesDown);
-
-merkabaGroup.position.y = 3.5;
-
-/* ============================================================
-   FLOR DE LA VIDA procedural
-   ============================================================ */
-function makeFlowerOfLife(){
-  const size = 1024;
-  const c = document.createElement('canvas');
-  c.width = size; c.height = size;
-  const ctx = c.getContext('2d');
-  ctx.strokeStyle = '#00d0ff';
-  ctx.lineWidth = 3;
-  ctx.shadowColor = '#00d0ff';
-  ctx.shadowBlur = 22;
-  const cx = size/2, cy = size/2, R = 70;
-  const centers = [[cx,cy]];
-  for (let i=0;i<6;i++){
-    const a = (i/6)*Math.PI*2 - Math.PI/2;
-    centers.push([cx + Math.cos(a)*R*2, cy + Math.sin(a)*R*2]);
-  }
-  for (let i=0;i<12;i++){
-    const a = (i/12)*Math.PI*2 - Math.PI/2;
-    centers.push([cx + Math.cos(a)*R*4, cy + Math.sin(a)*R*4]);
-  }
-  for (let i=0;i<18;i++){
-    const a = (i/18)*Math.PI*2 - Math.PI/2;
-    centers.push([cx + Math.cos(a)*R*6, cy + Math.sin(a)*R*6]);
-  }
-  centers.forEach(([x,y])=>{ ctx.beginPath(); ctx.arc(x,y,R*2,0,Math.PI*2); ctx.stroke(); });
-  ctx.beginPath(); ctx.arc(cx,cy,R*7.5,0,Math.PI*2); ctx.stroke();
-  return new THREE.CanvasTexture(c);
-}
-const flowerTex = makeFlowerOfLife();
-const flowerMat = new THREE.MeshBasicMaterial({
-  map: flowerTex, transparent:true, opacity:0.85,
-  blending: THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide,
-});
-const flowerPlane = new THREE.Mesh(new THREE.PlaneGeometry(26, 26), flowerMat);
-flowerPlane.position.set(0, 6.5, -9);
-scene.add(flowerPlane);
-
-const flowerMat2 = new THREE.MeshBasicMaterial({
-  map: flowerTex, transparent:true, opacity:0.3,
-  blending: THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide,
-});
-const flowerPlane2 = new THREE.Mesh(new THREE.PlaneGeometry(48, 48), flowerMat2);
-flowerPlane2.position.set(0, 6.5, -22);
-scene.add(flowerPlane2);
-
-/* ============================================================
-   PLATAFORMA DORADA
-   ============================================================ */
-const platform = new THREE.Group();
-scene.add(platform);
-
-const goldRingMat = new THREE.MeshBasicMaterial({
-  color: 0xffcc44, transparent:true, opacity:0.8,
-  blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-});
-const ringOuter = new THREE.Mesh(new THREE.RingGeometry(11.5, 12, 128), goldRingMat);
-ringOuter.rotation.x = -Math.PI/2;
-platform.add(ringOuter);
-const ringMid = new THREE.Mesh(new THREE.RingGeometry(8.5, 8.7, 128), goldRingMat.clone());
-ringMid.rotation.x = -Math.PI/2;
-ringMid.material.opacity = 0.65;
-platform.add(ringMid);
-const ringInner = new THREE.Mesh(new THREE.RingGeometry(5.5, 5.65, 128), goldRingMat.clone());
-ringInner.rotation.x = -Math.PI/2;
-ringInner.material.opacity = 0.5;
-platform.add(ringInner);
-const centerDisk = new THREE.Mesh(new THREE.CircleGeometry(5, 64), new THREE.MeshBasicMaterial({
-  color: 0x00d0ff, transparent:true, opacity:0.15,
-  blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-}));
-centerDisk.rotation.x = -Math.PI/2;
-centerDisk.position.y = 0.01;
-platform.add(centerDisk);
-
-const goldGrid = new THREE.GridHelper(40, 40, 0xffcc44, 0x442200);
-goldGrid.material.transparent = true; goldGrid.material.opacity = 0.15;
-scene.add(goldGrid);
-
-/* ============================================================
-   RAYOS VOLUMÉTRICOS
-   ============================================================ */
-const godRays = [];
-const rayColors = [0x00d0ff, 0xffcc44, 0x7a5cff, 0x00d0ff, 0xffcc44, 0x7a5cff];
-for (let i=0;i<6;i++){
-  const coneGeom = new THREE.ConeGeometry(0.5+Math.random()*0.6, 32+Math.random()*12, 12, 1, true);
-  const coneMat = new THREE.MeshBasicMaterial({
-    color: rayColors[i], transparent:true, opacity:0.04+Math.random()*0.05,
-    blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite:false,
-  });
-  const cone = new THREE.Mesh(coneGeom, coneMat);
-  cone.rotation.z = (Math.random()-0.5)*0.35;
-  cone.rotation.x = (Math.random()-0.5)*0.35;
-  cone.position.set((Math.random()-0.5)*10, 18, (Math.random()-0.5)*10);
-  cone.userData.baseOpacity = coneMat.opacity;
-  scene.add(cone);
-  godRays.push(cone);
-}
-
-/* ============================================================
-   CHISPAS ORBITALES
-   ============================================================ */
-const SPARK_N = Q.SPARK;
-const sparkPos = new Float32Array(SPARK_N*3);
-const sparkData = [];
-for (let i=0;i<SPARK_N;i++){
-  const r = 5 + Math.random()*10;
-  const th = Math.random()*Math.PI*2;
-  const ph = Math.acos(2*Math.random()-1);
-  const speed = 0.15 + Math.random()*0.5;
-  sparkPos[i*3] = r*Math.sin(ph)*Math.cos(th);
-  sparkPos[i*3+1] = r*Math.cos(ph);
-  sparkPos[i*3+2] = r*Math.sin(ph)*Math.sin(th);
-  sparkData.push({ r, th, ph, speed });
-}
-const sparkGeom = new THREE.BufferGeometry();
-sparkGeom.setAttribute('position', new THREE.BufferAttribute(sparkPos,3));
-const sparkMat = new THREE.PointsMaterial({
-  color: 0xffcc44, size:0.12, transparent:true, opacity:0.9,
-  blending: THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true,
-});
-const sparks = new THREE.Points(sparkGeom, sparkMat);
-scene.add(sparks);
-
-/* Estrellas */
-const starPos = new Float32Array(Q.STARS*3);
-for (let i=0;i<Q.STARS;i++){
-  const r = 120+Math.random()*300, th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1);
-  starPos[i*3]   = r*Math.sin(ph)*Math.cos(th);
-  starPos[i*3+1] = r*Math.cos(ph);
-  starPos[i*3+2] = r*Math.sin(ph)*Math.sin(th);
-}
-const starGeom = new THREE.BufferGeometry();
-starGeom.setAttribute('position', new THREE.BufferAttribute(starPos,3));
-const stars = new THREE.Points(starGeom, new THREE.PointsMaterial({
-  color:0x88aaff, size:0.5, transparent:true, opacity:0.7,
-  blending:THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true,
-}));
-scene.add(stars);
-
-/* ============================================================
-   AUDIO
-   ============================================================ */
-let audioCtx=null, analyser=null, freqData=null, timeData=null;
-let audioEl=null, audioSrc=null, audioDest=null;
-let bass=0, mid=0, high=0, energy=0, prevEnergy=0;
-let beatFlash=0, beatCount=0, lastBeatTime=0, dropFlash=0;
-
-/* ============================================================
-   ESTADO
-   ============================================================ */
-let t=0, last=performance.now();
-let camPhase=0, camMode=0, camModeTimer=0;
-let fpsAcc=0, fpsCount=0;
-let recording=false, recorder=null, recordedChunks=[];
-
-const cam = { theta:0, phi:1.25, radius:20, target: new THREE.Vector3(0,3.5,0) };
-const camGoal = { theta:0, phi:1.25, radius:20 };
-const camTgtGoal = new THREE.Vector3(0,3.5,0);
-
-/* ============================================================
-   CARGA MP3 → ARRANQUE AUTOMÁTICO
-   ============================================================ */
-const intro = document.getElementById('intro');
-const fileInput = document.getElementById('fileinput');
-const doneScreen = document.getElementById('done');
-const recStatus = document.getElementById('recstatus');
-const progressFill = document.getElementById('progress-fill');
-const tCurrent = document.getElementById('tcurrent');
-const tTotal = document.getElementById('ttotal');
-
-intro.addEventListener('click', ()=>fileInput.click());
-fileInput.addEventListener('change', e=>{ if(e.target.files[0]) startFullFlow(e.target.files[0]); });
-['dragover','dragenter'].forEach(ev=>intro.addEventListener(ev, e=>{
-  e.preventDefault(); intro.querySelector('.box').style.borderColor='#ffcc44';
-}));
-['dragleave','drop'].forEach(ev=>intro.addEventListener(ev, e=>{
-  e.preventDefault(); intro.querySelector('.box').style.borderColor='#ffcc4455';
-}));
-intro.addEventListener('drop', e=>{
-  const f = e.dataTransfer.files[0];
-  if (f && f.type.startsWith('audio/')) startFullFlow(f);
-});
-
-async function startFullFlow(file){
-  if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-  if (audioCtx.state==='suspended') await audioCtx.resume();
-
-  audioEl = new Audio();
-  audioEl.src = URL.createObjectURL(file);
-  audioEl.crossOrigin = 'anonymous';
-
-  audioSrc = audioCtx.createMediaElementSource(audioEl);
-  analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 2048;
-  analyser.smoothingTimeConstant = 0.72;
-  freqData = new Uint8Array(analyser.frequencyBinCount);
-  timeData = new Uint8Array(analyser.fftSize);
-
-  audioSrc.connect(analyser);
-  audioDest = audioCtx.createMediaStreamDestination();
-  analyser.connect(audioCtx.destination);
-  analyser.connect(audioDest);
-
-  intro.classList.add('hide');
-
-  // Cuando el audio tiene metadata, sabemos la duración
-  audioEl.addEventListener('loadedmetadata', ()=>{
-    tTotal.textContent = formatTime(audioEl.duration);
-    // Arrancar reproducción + grabación
-    setTimeout(()=>{
-      audioEl.play();
-      startRecording();
-    }, 600);
-  });
-
-  // Actualizar progreso
-  audioEl.addEventListener('timeupdate', ()=>{
-    const p = (audioEl.currentTime / audioEl.duration) * 100;
-    progressFill.style.width = p + '%';
-    tCurrent.textContent = formatTime(audioEl.currentTime);
-  });
-
-  // Cuando termina → parar grabación
-  audioEl.addEventListener('ended', ()=>{
-    stopRecording();
+</div>
+<nav>
+<button class="on"><i>🏠</i>Inicio</button>
+<button onclick="document.getElementById('buscador').focus()"><i>🔍</i>Buscar</button>
+<button><i>📚</i>Biblioteca</button>
+<button><i>👤</i>Perfil</button>
+</nav>
+<script>
+const canciones=[
+{id:0,titulo:"Nebula Drift",artista:"Aurora Flux",dur:"2:45",emoji:"🌊",clase:"c1",freq:432,tag:"cymatic"},
+{id:1,titulo:"Pulse Zero",artista:"Vanta",dur:"3:12",emoji:"💗",clase:"c2",freq:528,tag:"neon"},
+{id:2,titulo:"Synthetic Bloom",artista:"Lysr",dur:"4:01",emoji:"🌸",clase:"c3",freq:639,tag:"cymatic"},
+{id:3,titulo:"Echo Chamber",artista:"Nova Rift",dur:"3:42",emoji:"🌀",clase:"c4",freq:741,tag:"neon"},
+];
+let actual=3, sonando=true, ctx=null, osc=null, gain=null, prog=36;
+const lista=document.getElementById('lista');
+function pintar(filtro=""){
+  lista.innerHTML="";
+  canciones.filter(c=>c.titulo.toLowerCase().includes(filtro)||c.artista.toLowerCase().includes(filtro)||c.tag.includes(filtro)).forEach(c=>{
+    const d=document.createElement('div');
+    d.className='song'+(c.id===actual?' active':'');
+    d.innerHTML=`<div class="cover ${c.clase}">${c.emoji}</div><div><b>${c.titulo}</b><br><span>${c.artista} • ${c.dur}</span></div><button class="playbtn ${c.id%2?'pink':''}" onclick="tocar(${c.id},event)">▶</button>`;
+    d.onclick=()=>tocar(c.id);
+    lista.appendChild(d);
   });
 }
-
-function formatTime(s){
-  if (!isFinite(s)) return '0:00';
-  const m = Math.floor(s/60);
-  const ss = Math.floor(s%60);
-  return m + ':' + String(ss).padStart(2,'0');
+function iniciarAudio(f){
+  if(!ctx) ctx=new (window.AudioContext||window.webkitAudioContext)();
+  pararAudio();
+  osc=ctx.createOscillator(); gain=ctx.createGain();
+  osc.type='sine'; osc.frequency.value=f;
+  gain.gain.value=0.08;
+  const lfo=ctx.createOscillator(); const lfoGain=ctx.createGain();
+  lfo.frequency.value=0.5; lfoGain.gain.value=30;
+  lfo.connect(lfoGain); lfoGain.connect(osc.frequency);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(); lfo.start();
 }
-
-/* ============================================================
-   ANÁLISIS
-   ============================================================ */
-function analyze(){
-  if (!analyser) return;
-  analyser.getByteFrequencyData(freqData);
-  analyser.getByteTimeDomainData(timeData);
-  const n = freqData.length;
-  const bEnd = Math.floor(n*0.08), mEnd = Math.floor(n*0.45);
-  let b=0,m=0,h=0;
-  for (let i=0;i<bEnd;i++) b+=freqData[i];
-  for (let i=bEnd;i<mEnd;i++) m+=freqData[i];
-  for (let i=mEnd;i<n;i++) h+=freqData[i];
-  bass += ((b/(bEnd*255))-bass)*0.32;
-  mid  += ((m/((mEnd-bEnd)*255))-mid)*0.32;
-  high += ((h/((n-mEnd)*255))-high)*0.32;
-
-  let sum=0;
-  for (let i=0;i<timeData.length;i++){ const v=(timeData[i]-128)/128; sum+=v*v; }
-  energy = Math.sqrt(sum/timeData.length);
-
-  const now = performance.now();
-  if (energy-prevEnergy > 0.075 && now-lastBeatTime > 200){
-    beatFlash = 1; beatCount++; lastBeatTime = now;
-    document.getElementById('beats').textContent = beatCount;
-  }
-  prevEnergy = energy*0.55 + prevEnergy*0.45;
-  if (bass>0.75 && energy>0.45) dropFlash = Math.min(1.5, dropFlash+0.4);
-  dropFlash *= 0.94;
+function pararAudio(){ try{osc&&osc.stop()}catch(e){} osc=null; }
+function tocar(id,e){
+  if(e) e.stopPropagation();
+  actual=id; const c=canciones[id];
+  document.getElementById('pTitle').textContent=c.titulo;
+  document.getElementById('pArtist').textContent=c.artista+' • 0:00 de '+c.dur;
+  document.getElementById('pCover').textContent=c.emoji;
+  sonando=true; document.getElementById('btnPlay').textContent='⏸';
+  iniciarAudio(c.freq); prog=0; pintar(document.getElementById('buscador').value.toLowerCase());
 }
-
-/* ============================================================
-   UPDATES
-   ============================================================ */
-function updateMerkaba(dt){
-  merkabaGroup.rotation.y += dt*(0.35 + bass*1.5);
-  merkabaGroup.rotation.x += dt*(0.15 + mid*1.0);
-  const s = 1 + bass*0.4 + dropFlash*0.3 + beatFlash*0.15;
-  merkabaGroup.scale.setScalar(s);
-  merkabaGroup.position.y = 3.5 + Math.sin(t*0.9)*0.35 + beatFlash*0.4;
-  tetraUp.rotation.y += dt*0.6;
-  tetraDown.rotation.y -= dt*0.6;
-  const hue = 0.13 + Math.sin(t*0.3)*0.04 + high*0.1;
-  crystalMat.color.setHSL(hue, 0.5, 0.85);
-  edgesUp.material.color.setHSL(0.13 + high*0.15, 1, 0.6 + beatFlash*0.3);
-  edgesDown.material.color.setHSL(0.13 + high*0.15, 1, 0.6 + beatFlash*0.3);
+function togglePlay(){
+  sonando=!sonando;
+  document.getElementById('btnPlay').textContent=sonando?'⏸':'▶';
+  if(sonando) iniciarAudio(canciones[actual].freq); else pararAudio();
 }
-
-function updateFlower(){
-  flowerPlane.rotation.z += 0.0015;
-  flowerPlane.rotation.y = Math.sin(t*0.2)*0.15;
-  flowerPlane2.rotation.z -= 0.0008;
-  flowerPlane.scale.setScalar(1 + bass*0.15 + dropFlash*0.1);
-  flowerMat.opacity = 0.6 + energy*0.4;
-  flowerMat.color.setHSL(0.55 + Math.sin(t*0.2)*0.05, 1, 0.6 + beatFlash*0.2);
-}
-
-function updatePlatform(){
-  platform.rotation.y += 0.002 + bass*0.005;
-  ringOuter.scale.setScalar(1 + bass*0.08 + beatFlash*0.05);
-  ringMid.scale.setScalar(1 + bass*0.05);
-  ringInner.scale.setScalar(1 + bass*0.03);
-  goldRingMat.opacity = 0.65 + energy*0.3 + dropFlash*0.2;
-  centerDisk.material.opacity = 0.1 + bass*0.3 + dropFlash*0.2;
-}
-
-function updateGodRays(){
-  for (let i=0;i<godRays.length;i++){
-    godRays[i].rotation.y += 0.002 + high*0.015;
-    godRays[i].material.opacity = godRays[i].userData.baseOpacity * (1 + energy*2 + dropFlash*1.5);
-  }
-}
-
-function updateSparks(dt){
-  const sp = sparkGeom.attributes.position.array;
-  for (let i=0;i<SPARK_N;i++){
-    const d = sparkData[i];
-    d.th += dt * d.speed * (0.5 + bass*2.5);
-    d.ph += dt * d.speed * 0.4;
-    const r = d.r * (1 + bass*0.3 + beatFlash*0.15);
-    sp[i*3]   = r*Math.sin(d.ph)*Math.cos(d.th);
-    sp[i*3+1] = r*Math.cos(d.ph) + 3.5;
-    sp[i*3+2] = r*Math.sin(d.ph)*Math.sin(d.th);
-  }
-  sparkGeom.attributes.position.needsUpdate = true;
-  sparkMat.size = 0.12 + beatFlash*0.12;
-}
-
-/* Cámara cinematográfica */
-const CAM_MODES = ['HERO','ORBIT','CLOSE','TOP'];
-function updateCamera(dt){
-  camPhase += dt*(0.1 + bass*0.8 + dropFlash);
-  camModeTimer += dt;
-  if (camModeTimer > 12){
-    camMode = (camMode+1) % CAM_MODES.length;
-    camModeTimer = 0;
-  }
-  switch(camMode){
-    case 0: // HERO
-      camGoal.theta = Math.sin(camPhase*0.7)*0.4;
-      camGoal.phi   = 1.25 + Math.sin(camPhase*0.5)*0.1;
-      camGoal.radius= 16 - bass*2;
-      camTgtGoal.set(0,3.8,0); break;
-    case 1: // ORBIT
-      camGoal.theta = camPhase;
-      camGoal.phi   = 1.1 + Math.sin(camPhase*0.4)*0.3;
-      camGoal.radius= 22 + Math.sin(camPhase*0.7)*4 - bass*3;
-      camTgtGoal.set(0,3.5,0); break;
-    case 2: // CLOSE
-      camGoal.theta = camPhase*1.5;
-      camGoal.phi   = 1.3;
-      camGoal.radius= IS_MOBILE ? 13 : 10;
-      camTgtGoal.set(0,3.5,0); break;
-    case 3: // TOP
-      camGoal.theta = camPhase*0.5;
-      camGoal.phi   = 0.4 + Math.sin(camPhase*0.3)*0.08;
-      camGoal.radius= 24 - dropFlash*4;
-      camTgtGoal.set(0,1,0); break;
-  }
-  cam.theta  += (camGoal.theta  - cam.theta) * Math.min(1, dt*2);
-  cam.phi    += (camGoal.phi    - cam.phi)   * Math.min(1, dt*2);
-  cam.radius += (camGoal.radius - cam.radius)* Math.min(1, dt*2);
-  cam.target.lerp(camTgtGoal, Math.min(1, dt*1.5));
-  const sp = Math.sin(cam.phi);
-  camera.position.set(
-    cam.radius*sp*Math.sin(cam.theta),
-    cam.radius*Math.cos(cam.phi)+2.5,
-    cam.radius*sp*Math.cos(cam.theta)
-  );
-  camera.lookAt(cam.target);
-}
-
-/* ============================================================
-   LOOP
-   ============================================================ */
-function animate(now){
-  requestAnimationFrame(animate);
-  const dt = Math.min(0.05, (now-last)/1000);
-  last = now;
-  if (audioEl && !audioEl.paused) t += dt*1.35;
-
-  fpsAcc += dt; fpsCount++;
-  if (fpsAcc > 0.5){
-    document.getElementById('fps').textContent = Math.round(fpsCount/fpsAcc);
-    fpsAcc=0; fpsCount=0;
-  }
-
-  analyze();
-  beatFlash *= 0.88;
-
-  updateMerkaba(dt);
-  updateFlower();
-  updatePlatform();
-  updateGodRays();
-  updateSparks(dt);
-
-  stars.rotation.y += dt*0.005;
-  goldGrid.position.y = -0.001 + beatFlash*0.3;
-
-  updateCamera(dt);
-
-  bloom.strength = 0.6 + energy*0.9 + dropFlash*0.8;
-  bloom.radius   = 0.5 + bass*0.3;
-
-  filmPass.uniforms.uTime.value  = t;
-  filmPass.uniforms.uPulse.value = beatFlash;
-  filmPass.uniforms.uCA.value    = 0.001 + dropFlash*0.002;
-  filmPass.uniforms.uGrain.value = 0.04 + energy*0.05;
-
-  composer.render();
-}
-
-/* ============================================================
-   GRABACIÓN AUTOMÁTICA
-   ============================================================ */
-function pickMime(){
-  const list=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
-  for (const m of list) if (MediaRecorder.isTypeSupported(m)) return m;
-  return '';
-}
-
-function startRecording(){
-  recordedChunks = [];
-  const cs = canvas.captureStream(60);
-  const at = audioDest.stream.getAudioTracks();
-  const combined = new MediaStream([...cs.getVideoTracks(), ...at]);
-  const mime = pickMime();
-  recorder = new MediaRecorder(combined, {
-    mimeType: mime,
-    videoBitsPerSecond: 8_000_000,
-    audioBitsPerSecond: 128_000,
-  });
-  recorder.ondataavailable = e => { if (e.data.size>0) recordedChunks.push(e.data); };
-  recorder.onstop = ()=>{
-    const blob = new Blob(recordedChunks, { type:mime });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `auto-video-${Date.now()}.webm`;
-    a.click();
-    recording = false;
-    recStatus.classList.remove('show');
-    doneScreen.classList.add('show');
-    showToast('💾 VIDEO DESCARGADO');
-  };
-  recorder.start(1000);
-  recording = true;
-  recStatus.classList.add('show');
-}
-
-function stopRecording(){
-  if (recorder && recorder.state!=='inactive') recorder.stop();
-}
-
-/* ============================================================
-   REINICIAR
-   ============================================================ */
-document.getElementById('btn-restart').addEventListener('click', ()=>{
-  if (audioEl){ audioEl.pause(); audioEl.currentTime = 0; audioEl = null; }
-  doneScreen.classList.remove('show');
-  intro.classList.remove('hide');
-  progressFill.style.width = '0%';
-  tCurrent.textContent = '0:00';
-  tTotal.textContent = '0:00';
-  beatCount = 0;
-  t = 0;
-});
-
-/* ============================================================
-   RESIZE
-   ============================================================ */
-addEventListener('resize', ()=>{
-  camera.aspect = innerWidth/innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-  composer.setSize(innerWidth, innerHeight);
-  filmPass.uniforms.uResolution.value.set(innerWidth, innerHeight);
-});
-
-/* Toast */
-let toastTimer;
-function showToast(msg){
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>el.classList.remove('show'), 2400);
-}
-
-requestAnimationFrame(animate);
-
-console.log('%c✦ AUTO VIDEO ENGINE · LISTO ✦','color:#ffcc44;font-weight:bold;font-size:14px');
-console.log('Suelta un MP3 → arranca → graba → se descarga solo.');
+function siguiente(){ tocar((actual+1)%canciones.length); }
+function anterior(){ tocar((actual-1+canciones.length)%canciones.length); }
+function filtrar(tag){ document.getElementById('buscador').value=tag; pintar(tag); }
+document.getElementById('buscador').addEventListener('input',e=>pintar(e.target.value.toLowerCase()));
+setInterval(()=>{
+  if(!sonando) return;
+  prog=(prog+0.3)%100;
+  document.getElementById('bar').style.width=prog+'%';
+},300);
+pintar();
+iniciarAudio(741);
 </script>
 </body>
 </html>
