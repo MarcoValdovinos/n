@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>QUANTUM SOUND v8 CIMATICO</title>
+<title>QUANTUM SOUND v9 KRONOS</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 body{background:#050508;color:#fff;display:flex;justify-content:center}
@@ -44,24 +44,26 @@ h2.sec{margin:20px 0 8px;font-size:18px}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:430px;background:#0e0e17;border-top:1px solid #222233;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 0 14px;z-index:20}
 nav button{background:none;border:0;color:#8a8a9e;font-size:11px;cursor:pointer;display:flex;flex-direction:column;gap:3px;align-items:center}
 nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
-#full{position:fixed;inset:0;background:#050508;z-index:100;display:none;flex-direction:column;padding:14px 20px 22px}
+#full{position:fixed;inset:0;background:#02020a;z-index:100;display:none;flex-direction:column;padding:14px 16px 22px}
 #full.show{display:flex}
 .full-top{display:flex;justify-content:space-between;align-items:center}
 .full-top button{background:#1a1a2b;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer}
-#cymWrap{width:310px;height:310px;margin:10px auto 2px;position:relative;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 50%,#1a0533,#050508 75%);border:2px solid #2a2a4a;box-shadow:0 0 60px rgba(34,211,238,.45)}
+#cymWrap{width:100%;flex:1;min-height:360px;position:relative;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 50%,#050a1a,#02020a 70%);border:1px solid #1a2a4a}
 #cym{width:100%;height:100%;display:block}
-#fullEmoji{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;background:#050508;border-radius:50%;display:grid;place-items:center;font-size:38px;border:2px solid #22d3ee}
-.bars{display:flex;gap:5px;align-items:flex-end;justify-content:center;height:60px;margin:8px 0}
+.hud{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.6);border:1px solid #1e3a4a;border-radius:12px;padding:8px 10px;font-size:11px;backdrop-filter:blur(4px)}
+.hud b{color:#22d3ee}
+.hud2{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);border:1px solid #1e3a4a;border-radius:12px;padding:8px 10px;font-size:11px}
+.bars{display:flex;gap:5px;align-items:flex-end;justify-content:center;height:52px;margin:8px 0}
 .bars div{width:8px;background:linear-gradient(to top,#22d3ee,#ec4899,#a855f7);border-radius:5px;animation:bounce .7s ease-in-out infinite alternate}
-.bars div:nth-child(odd){animation-delay:.15s} .bars div:nth-child(3n){animation-delay:.3s} .bars div:nth-child(4n){animation-delay:.05s}
-@keyframes bounce{from{height:12px}to{height:58px}}
-.full-title{text-align:center;margin-top:2px}
-.full-title b{font-size:20px;display:block}
+.bars div:nth-child(odd){animation-delay:.15s} .bars div:nth-child(3n){animation-delay:.3s}
+@keyframes bounce{from{height:12px}to{height:50px}}
+.full-title{text-align:center}
+.full-title b{font-size:19px;display:block}
 .full-title span{color:#9a9ab0;font-size:13px}
-.full-progress{height:5px;background:#2a2a3d;border-radius:999px;margin:14px 0 6px;overflow:hidden}
+.full-progress{height:5px;background:#2a2a3d;border-radius:999px;margin:12px 0 6px;overflow:hidden}
 .full-bar{height:100%;width:0%;background:linear-gradient(90deg,#67e8f9,#f472b6)}
 .full-times{display:flex;justify-content:space-between;font-size:11px;color:#9a9ab0}
-.full-ctrls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:12px}
+.full-ctrls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:10px}
 .full-ctrls button{width:52px;height:52px;border-radius:50%;border:1px solid #444;background:#14141f;color:#fff;font-size:18px;cursor:pointer}
 .full-ctrls button.main{width:72px;height:72px;background:linear-gradient(135deg,#06b6d4,#ec4899);border:0;font-size:26px}
 </style>
@@ -82,13 +84,13 @@ nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 <h2 class="sec">Mi música del celular</h2>
 <div class="count" id="count">Toca el botón de arriba para cargar tus rolas</div>
 <div id="lista"></div>
-<button class="btn-ver" onclick="abrirFull()">🔮 VER PANTALLA COMPLETA / CIMATICO</button>
+<button class="btn-ver" onclick="abrirFull()">🔮 VER PANTALLA COMPLETA / CIMATICO 3D</button>
 </div>
 <div class="player" onclick="abrirFull()">
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="p-row">
 <div class="p-cover" id="pCover">🎵</div>
-<div class="p-info"><b id="pTitle">Elige una canción</b><span id="pArtist">Toca aquí para abrir cimático</span></div>
+<div class="p-info"><b id="pTitle">Elige una canción</b><span id="pArtist">Toca aquí para abrir cimático 3D</span></div>
 <button class="ctrl" onclick="anterior();event.stopPropagation()">⏮</button>
 <button class="ctrl main" id="btnPlay" onclick="togglePlay();event.stopPropagation()">▶</button>
 <button class="ctrl" onclick="siguiente();event.stopPropagation()">⏭</button>
@@ -101,8 +103,12 @@ nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 <button><i>👤</i>Perfil</button>
 </nav>
 <div id="full">
-<div class="full-top"><button onclick="cerrarFull()">↓</button><span style="font-size:12px;color:#9a9ab0">QUANTUM SOUND • CIMATICO REAL</span><button onclick="cerrarFull()">✕</button></div>
-<div id="cymWrap"><canvas id="cym" width="620" height="620"></canvas><div id="fullEmoji">🎵</div></div>
+<div class="full-top"><button onclick="cerrarFull()">↓</button><span style="font-size:12px;color:#9a9ab0">QUANTUM SOUND • CIMATICO 3D</span><button onclick="cerrarFull()">✕</button></div>
+<div id="cymWrap">
+<canvas id="cym" width="800" height="800"></canvas>
+<div class="hud">👁 Focused Node: <b>QUANTUM-ZERO</b> • 0x0000...QUANTUM</div>
+<div class="hud2">NODES: 320 • FPS: 60</div>
+</div>
 <div class="bars" id="bars"></div>
 <div class="full-title"><b id="fullTitle">Elige una canción</b><span id="fullArtist">Tu música del celular</span></div>
 <div class="full-progress"><div class="full-bar" id="fullBar"></div></div>
@@ -112,7 +118,6 @@ nav button.on{color:#7ef3ff} nav button i{font-size:18px;font-style:normal}
 <button class="main" id="fullPlay" onclick="togglePlay()">▶</button>
 <button onclick="siguiente()">⏭</button>
 </div>
-<p style="text-align:center;color:#7ef3ff;font-size:12px;margin-top:10px">✨ Patrón cimático • se mueve con tu música ✨</p>
 </div>
 <audio id="audio" preload="metadata"></audio>
 <script>
@@ -172,6 +177,7 @@ function abrirFull(){
     document.getElementById('fullTitle').textContent=canciones[actual].titulo;
     document.getElementById('fullArtist').textContent=canciones[actual].artista;
   }
+  resizeCanvas();
 }
 function cerrarFull(){ const el=document.getElementById('full'); el.classList.remove('show'); el.style.display='none'; }
 document.getElementById('buscador').addEventListener('input',e=>pintar(e.target.value.toLowerCase()));
@@ -187,56 +193,105 @@ audio.addEventListener('timeupdate',()=>{
 audio.addEventListener('ended',()=>siguiente());
 pintar();
 
-// === CIMATICO REAL EN CANVAS ===
+// === CIMATICO 3D ESTILO KRONOS ===
 const cym=document.getElementById('cym');
 const ctx=cym.getContext('2d');
 let t=0;
-function drawCym(){
-  t+= sonando ? 0.045 : 0.018;
-  const W=620, H=620, cx=W/2, cy=H/2;
+let stars=[];
+for(let i=0;i<90;i++) stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+0.4});
+function resizeCanvas(){
+  const w=document.getElementById('cymWrap');
+  if(!w) return;
+  const r=w.getBoundingClientRect();
+  cym.width=r.width*2; cym.height=r.height*2;
+}
+window.addEventListener('resize',resizeCanvas);
+function rotX(p,ang){ const c=Math.cos(ang),s=Math.sin(ang); return {x:p.x,y:p.y*c-p.z*s,z:p.y*s+p.z*c}; }
+function rotY(p,ang){ const c=Math.cos(ang),s=Math.sin(ang); return {x:p.x*c+p.z*s,y:p.y,z:-p.x*s+p.z*c}; }
+function project(p,cx,cy,scale){
+  const fov=3.2;
+  const s=fov/(fov+p.z);
+  return {x:cx+p.x*scale*s, y:cy+p.y*scale*s, s:s};
+}
+// puntos base esfera fibonacci
+const N=320;
+let basePts=[];
+const GA=Math.PI*(3-Math.sqrt(5));
+for(let i=0;i<N;i++){
+  const y=1-(i/(N-1))*2;
+  const rad=Math.sqrt(1-y*y);
+  const th=GA*i;
+  basePts.push({x:Math.cos(th)*rad,y:y,z:Math.sin(th)*rad, th:th, y0:y});
+}
+const cubePts=[{x:-1,y:-1,z:-1},{x:1,y:-1,z:-1},{x:1,y:1,z:-1},{x:-1,y:1,z:-1},{x:-1,y:-1,z:1},{x:1,y:-1,z:1},{x:1,y:1,z:1},{x:-1,y:1,z:1}];
+const cubeEdges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+function draw3D(){
+  t+= sonando ? 0.028 : 0.012;
+  const W=cym.width, H=cym.height;
+  const cx=W/2, cy=H/2;
   ctx.clearRect(0,0,W,H);
   // fondo
-  const g=ctx.createRadialGradient(cx,cy,10,cx,cy,310);
-  g.addColorStop(0,'#2a0a4a'); g.addColorStop(0.5,'#0a0a22'); g.addColorStop(1,'#050508');
+  const g=ctx.createRadialGradient(cx,cy,10,cx,cy,W*0.6);
+  g.addColorStop(0,'#0a1226'); g.addColorStop(0.6,'#02020a'); g.addColorStop(1,'#000');
   ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  const amp = sonando ? 22 : 12;
-  const capas=[
-    {base:55,n:3,m:5,col:'#22d3ee',w:2.2},
-    {base:95,n:5,m:3,col:'#ec4899',w:2.2},
-    {base:135,n:7,m:4,col:'#a855f7',w:2},
-    {base:175,n:9,m:6,col:'#67e8f9',w:1.8},
-    {base:215,n:11,m:7,col:'#f472b6',w:1.6},
-    {base:255,n:13,m:8,col:'#e9a8ff',w:1.4},
-  ];
-  capas.forEach((L,li)=>{
-    ctx.beginPath();
-    for(let a=0;a<=Math.PI*2+0.01;a+=0.02){
-      const r = L.base + Math.sin(L.n*a + t*2 + li)*amp*0.6 + Math.sin(L.m*a - t*1.5)*amp*0.5 + Math.sin(2*a + t)*6;
-      const x=cx + r*Math.cos(a);
-      const y=cy + r*Math.sin(a);
-      if(a===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.closePath();
-    ctx.strokeStyle=L.col; ctx.lineWidth=L.w; ctx.globalAlpha=0.95; ctx.stroke();
-    ctx.globalAlpha=0.12; ctx.fillStyle=L.col; ctx.fill(); ctx.globalAlpha=1;
+  // estrellas
+  ctx.fillStyle='rgba(150,220,255,0.7)';
+  stars.forEach(s=>{ ctx.beginPath(); ctx.arc(s.x*W,s.y*H,s.r*2,0,Math.PI*2); ctx.fill(); });
+  const amp = sonando ? 0.55 : 0.32;
+  const rotA=t*0.55, rotB=t*0.35;
+  const blobScale=Math.min(W,H)*0.32;
+  // CUBO - atras
+  const cubeProj=cubePts.map(p=>{
+    let q=rotY(p,rotB*0.6); q=rotX(q,rotA*0.6);
+    return project(q,cx,cy,Math.min(W,H)*0.42);
   });
-  // puntos mandala - como arena
-  for(let k=0;k<24;k++){
-    const ang=(k/24)*Math.PI*2 + t*0.3;
-    const rr= 70 + Math.sin(t*2+k)*10 + (k%2? 120:0);
-    const x=cx+rr*Math.cos(ang), y=cy+rr*Math.sin(ang);
-    ctx.beginPath(); ctx.arc(x,y, sonando?3.2:2.2,0,Math.PI*2);
-    ctx.fillStyle= k%3==0?'#22d3ee': k%3==1?'#ec4899':'#a855f7'; ctx.fill();
+  ctx.strokeStyle='rgba(34,211,238,0.55)'; ctx.lineWidth=2;
+  cubeEdges.forEach(e=>{
+    ctx.beginPath(); ctx.moveTo(cubeProj[e[0]].x,cubeProj[e[0]].y); ctx.lineTo(cubeProj[e[1]].x,cubeProj[e[1]].y); ctx.stroke();
+  });
+  // BLOB MORADO - cimatico
+  let projPts=[];
+  for(let i=0;i<N;i++){
+    const b=basePts[i];
+    // deformacion cimatica - ondas que se cruzan
+    const deform = 1 + amp*Math.sin(4*b.th + t*3)*Math.sin(3*b.y0*3 - t*2) + amp*0.5*Math.sin(6*b.x*2 + t*4);
+    let p={x:b.x*deform, y:b.y*deform, z:b.z*deform};
+    p=rotY(p,rotB); p=rotX(p,rotA);
+    const pr=project(p,cx,cy,blobScale);
+    projPts.push(pr);
   }
-  // lineas radiales
-  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1;
-  for(let i=0;i<12;i++){
-    const a=(i/12)*Math.PI*2;
-    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+290*Math.cos(a),cy+290*Math.sin(a)); ctx.stroke();
+  // malla alambre morada
+  ctx.strokeStyle='rgba(168,85,247,0.55)'; ctx.lineWidth=1;
+  for(let i=0;i<N;i++){
+    const a=projPts[i];
+    const b1=projPts[(i+1)%N];
+    const b2=projPts[(i+13)%N];
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b1.x,b1.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b2.x,b2.y); ctx.stroke();
   }
-  requestAnimationFrame(drawCym);
+  // relleno morado translucido - forma de gota
+  ctx.fillStyle='rgba(139,92,246,0.32)';
+  ctx.beginPath();
+  projPts.forEach((p,i)=>{ if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y); });
+  ctx.closePath(); ctx.fill();
+  // puntos brillantes del blob
+  projPts.forEach((p,i)=>{
+    ctx.beginPath(); ctx.arc(p.x,p.y, 2.2*p.s+0.8, 0, Math.PI*2);
+    ctx.fillStyle= i%3==0 ? '#22d3ee' : '#a855f7';
+    ctx.fill();
+  });
+  // nodos del cubo
+  cubeProj.forEach((p,i)=>{
+    ctx.beginPath(); ctx.arc(p.x,p.y, 9, 0, Math.PI*2);
+    ctx.fillStyle= i%2==0 ? '#22d3ee' : '#c084fc';
+    ctx.fill();
+    ctx.beginPath(); ctx.arc(p.x,p.y, 16, 0, Math.PI*2);
+    ctx.strokeStyle='rgba(34,211,238,0.3)'; ctx.stroke();
+  });
+  requestAnimationFrame(draw3D);
 }
-drawCym();
+resizeCanvas();
+draw3D();
 </script>
 </body>
 </html>
